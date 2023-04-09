@@ -19,8 +19,8 @@ export const getProductById = asyncHandler(async(req,res) => {
         message:"Product fetched successfully",
         product
     })
-    else res.status(500).json({
-        message:"Error fetching product"
+    else res.status(404).json({
+        message:"Product not found"
     })
 })
 
@@ -35,7 +35,7 @@ export const addProduct = asyncHandler(async(req,res) => {
         })
         if(product) res.status(201).json({
             message:"Product created successfully",
-            product
+            productName, modelYear, price, description, productId:product.productId
         })
         else res.status(500).json({
             message:"Error creating product"
@@ -51,7 +51,7 @@ export const updateProduct = asyncHandler(async(req,res) => {
         const updatedProduct = await Product.findOneAndUpdate({ productId },{ productName, modelYear, price, description })
         if(updatedProduct) res.status(201).json({
             message:"Product updated successfully",
-            updatedProduct
+            productId, productName, modelYear, price, description
         })
         else res.status(500).json({
             message:"Error updating product"

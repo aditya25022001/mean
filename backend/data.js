@@ -1,4 +1,6 @@
 import { ulid } from 'ulid'
+import bcrypt from 'bcryptjs'
+
 export const products =  [ 
     {
         productId:ulid(), 
@@ -56,4 +58,23 @@ export const products =  [
         price: 15000,
         description:"Desktop description"
     },
+]
+
+export const users = [
+    {
+        name: 'Aditya', 
+        email: "aditya@gmail.com", 
+        password: bcrypt.hashSync("123456789",10),
+        isAdmin:true
+    },
+    {
+        name: 'Arpita', 
+        email: "arpita@gmail.com", 
+        password: bcrypt.hashSync("123456789",10),
+    },
+    {
+        name: 'Pranav', 
+        email: "pranav@gmail.com", 
+        password: bcrypt.hashSync("123456789",10),
+    }
 ]

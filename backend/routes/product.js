@@ -3,8 +3,13 @@ import { Router } from 'express'
 
 const router  = Router();
 
-router.route("/").get(getAllProducts).post(addProduct)
+router.route("/")
+.get(getAllProducts)
+.post(addProduct)
 
-router.route("/:productId").get(getProductById).put(updateProduct).delete(deleteProduct);
+router.route("/:productId")
+.get(getProductById)
+.put(updateProduct)
+.delete(deleteProduct);
 
 export default router;

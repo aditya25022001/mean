@@ -1,6 +1,7 @@
 import Product from "./model/product.js";
-import { products } from "./data.js";
+import { products, users } from "./data.js";
 import { db } from "./config/db.js";
+import User from "./model/user.js";
 
 db();
 
@@ -8,6 +9,8 @@ const importData = async() => {
     try{
         await Product.deleteMany();
         await Product.insertMany(products);
+        await User.deleteMany();
+        await User.insertMany(users);
         console.log("Data added...")
         process.exit(0)
     }
@@ -20,6 +23,7 @@ const importData = async() => {
 const destroyData = async() => {
     try{
         await Product.deleteMany();
+        await User.deleteMany();
         console.log("Data deleted...")
         process.exit(0)
     }

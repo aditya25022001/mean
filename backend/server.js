@@ -3,6 +3,7 @@ import { config } from 'dotenv'
 import cors from 'cors'
 import { db } from './config/db.js'
 import productRoutes from './routes/product.js'
+import userRoutes from './routes/user.js'
 import { notFound, errorHandler } from './middleware/error.js'
 
 config()
@@ -20,6 +21,8 @@ app.use(cors({
     allowed:process.env.ALLOWED.split(" "),
     methods:["GET", "POST", "DELETE", "PUT"]
 }))
+
+app.use("/api/v1/users",userRoutes);
 
 app.use("/api/v1/products",productRoutes);
 
