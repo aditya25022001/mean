@@ -35,6 +35,7 @@ export const addProduct = asyncHandler(async(req,res) => {
         })
         if(product) res.status(201).json({
             message:"Product created successfully",
+            success:true,
             productName, modelYear, price, description, productId:product.productId
         })
         else res.status(500).json({
@@ -51,6 +52,7 @@ export const updateProduct = asyncHandler(async(req,res) => {
         const updatedProduct = await Product.findOneAndUpdate({ productId },{ productName, modelYear, price, description })
         if(updatedProduct) res.status(201).json({
             message:"Product updated successfully",
+            success:true,
             productId, productName, modelYear, price, description
         })
         else res.status(500).json({
@@ -70,6 +72,7 @@ export const deleteProduct = asyncHandler(async(req,res) => {
     if(product){
         await Product.deleteOne({ productId })
         res.status(200).json({
+            success:true,
             message: 'Product deleted successfully'
         })
     }
