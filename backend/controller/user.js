@@ -13,11 +13,17 @@ export const register = asyncHandler(async(req,res) => {
             name, email, password, isAdmin
         })
         if(user){
-            const uSend = await User.findOne({ email }).select("-password")
+            const uSend = await User.findOne({ email })
+            const { _id, name:nSend, email:eSend, isAdmin } = uSend._doc
             res.status(201).json({
                 message:"User created successfully",
-                ...uSend._doc,
-                token:generateToken(user._id)
+                user:{
+                    _id, 
+                    name:nSend, 
+                    email:eSend, 
+                    isAdmin,
+                    token:generateToken(user._id)
+                }
             })
         }
         else{
@@ -39,8 +45,14 @@ export const login = asyncHandler(async(req,res) => {
             const user = await User.findOne({ email }).select("-password");
             const { _id, name, email:eSend, isAdmin } = user._doc;
             res.status(200).json({
-                _id,name,email:eSend,isAdmin,
-                token: generateToken(uE._id),
+                message:"Logged in successfully",
+                user:{
+                    _id,
+                    name,
+                    email:eSend,
+                    isAdmin,
+                    token: generateToken(uE._id),
+                }
             })
         }
         else{
