@@ -21,7 +21,7 @@ export const authenticate = asyncHandler(async(req,res,next) => {
             message:"Not authorized",
         })
     }
-    next();
+    else next();
 })
 
 export const admin = asyncHandler(async(req,res,next) => {
