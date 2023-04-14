@@ -22,6 +22,11 @@ const productSchema = Schema({
     description:{
         type:String,
         required:false
+    },
+    image:{
+        type:String,
+        required:false,
+        default:"https://www.pngitem.com/pimgs/m/568-5680053_prod-placeholder-vector-product-icon-png-transparent-png.png"
     }
 },{
     timestamps:true

@@ -25,18 +25,18 @@ export const getProductById = asyncHandler(async(req,res) => {
 })
 
 export const addProduct = asyncHandler(async(req,res) => {
-    const { productName, modelYear, price, description } = req.body
+    const { productName, modelYear, price, description, image, productId } = req.body
     if(!productName || !modelYear || !price || productName==="" || modelYear==="" || price===0){
         res.status(400).json({ message:"all fields are required" });
     }
     else{
         const product = await Product.create({
-            productName, modelYear, price, description
+            productName, modelYear, price, description, image, productId
         })
         if(product) res.status(201).json({
             message:"Product created successfully",
             success:true,
-            productName, modelYear, price, description, productId:product.productId
+            productName, modelYear, price, description, productId, image
         })
         else res.status(500).json({
             message:"Error creating product"
