@@ -2,7 +2,38 @@ import Product from "../model/product.js";
 import asyncHandler from 'express-async-handler'
 
 export const getAllProducts = asyncHandler(async(req,res) => {
-    const products = await Product.find({});
+    const minPrice = req.query.minPrice || 0
+    const maxPrice =  req.query.maxPrice
+    const modelYear = req.query.modelYear
+    let query = {};
+    if(minPrice && maxPrice!==2e7){
+        query={
+            ...query,
+            $and:[
+                { price: { $gte:minPrice } },
+                { price: { $lte:maxPrice } }
+            ]
+        }
+    }
+    if(minPrice && maxPrice===2e7){
+        query={ 
+            ...query, 
+            price:{ $gte: minPrice } 
+        }
+    }
+    if(minPrice===0 && maxPrice!==2e7){
+        query={ 
+            ...query, 
+            price:{ $lte: maxPrice } 
+        }
+    }
+    if(modelYear!==""){
+        query={ 
+            ...query,
+            modelYear:{ $eq:modelYear } 
+        }
+    }
+    const products = await Product.find(query);
     if(products) res.status(200).json({
         message:"Products fetched successfully",
         products
